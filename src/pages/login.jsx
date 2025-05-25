@@ -5,7 +5,9 @@ import { Navigate, useNavigate } from "react-router";
 import { useState } from "react";
 import { Context } from "@/context/user";
 import { useContext } from "react";
+import { useRedirect } from "@/lib/redirect";
 export default function LoginPage() {
+  useRedirect()
   const navigate = useNavigate();
   const [emailInput, setEmailInp] = useState("");
   const [passwordInput, setPasswordlInp] = useState("");

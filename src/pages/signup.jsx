@@ -4,12 +4,13 @@ import { useState } from "react"
 import { Input } from "@/components/ui/input"
 import { Label } from "@radix-ui/react-label"
 import { useNavigate } from "react-router"
+import { useRedirect } from "@/lib/redirect"
 export default function SignupPage() {
 const [emailInp,setEmailInp]=useState('')
 const [passwordInp,setPasswordlInp]=useState('')
 const [userName,setUserName] = useState('')
 const navigate = useNavigate()
-
+useRedirect()
     async function signupUser(){
       try {const { data, error } = await supabase.auth.signUp({
         email: emailInp,

@@ -11,7 +11,7 @@ export default function LoginPage() {
   const navigate = useNavigate();
   const [emailInput, setEmailInp] = useState("");
   const [passwordInput, setPasswordlInp] = useState("");
-  const { updateUser } = useContext(Context);
+  const { updateUser} = useContext(Context);
   async function loginUser() {
 
     try {
@@ -20,14 +20,30 @@ export default function LoginPage() {
         password: passwordInput,
       });
 
-      if (data) {
-        console.log(data.user);
+      if (data.user) {
+        console.log(data.user  );
         updateUser(data.user);
-    navigate("/");
+        const { data:usersRollData, error:usersRollError } = await supabase
+  .from('users')
+  .select()
+  console.log(usersRollData);
+  console.log(data.user.id);
+  const loggedInUserData = usersRollData.find((e)=>{return  e.user_id == data.user.id})
+  console.log(loggedInUserData);
+  
+  
+  if(loggedInUserData.user_id ==data.user.id){
+    if (loggedInUserData.role.toLowerCase() == 'admin'){navigate('/admin/all-events');console.log(usersRollData.status.toLowerCase());
+    }
+    else{navigate("/")}
+  }
+    // navigate("/");
+
 
       }
       if (error) throw error;
-    } catch (error) {}
+    } catch (error) {console.log(error);
+    }
   }
 
   return (
@@ -39,7 +55,7 @@ export default function LoginPage() {
               pageTitile={"Login To Your Account"}
               btnTitle1={"Login"}
               btnTitle2={"Signup"}
-              link={"/Signup"}
+              link={"/signup"}
               emailInput={(e) => {
                 setEmailInp(e.target.value);
               }}

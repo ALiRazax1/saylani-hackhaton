@@ -3,11 +3,11 @@ import { createContext, useState } from "react";
 export const Context = createContext("")
 
 
-export function MyProvider({children}){
+export function DataProvider({children}){
 
   
 
-    const [eventData , setEventData] = useState([])
+    const [eventData , setEventData] = useState({})
 
 
   

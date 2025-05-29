@@ -11,6 +11,7 @@ const [passwordInp,setPasswordlInp]=useState('')
 const [userName,setUserName] = useState('')
 const navigate = useNavigate()
 useRedirect()
+
     async function signupUser(){
       try {const { data, error } = await supabase.auth.signUp({
         email: emailInp,
@@ -21,6 +22,13 @@ useRedirect()
           }
         }
       })
+      if(data){
+         const { error:usersRoleDataError } = await supabase
+  .from('users')
+  .insert({ user_id:data.user.id,name: data.user.user_metadata.name,role:'user' })
+if(usersRoleDataError) throw error      
+}
+     
       navigate('/login')
         if (error) throw error
       } catch (error) {

@@ -1,5 +1,6 @@
 import { Calendar, Home, Inbox, Search, Settings } from "lucide-react"
-import { Link } from "react-router"
+import { Link, useLocation } from "react-router"
+import { NavLink } from "react-router"
 
 import {
   Sidebar,
@@ -17,7 +18,7 @@ import {
 const customers = [
   {
     title: "My Events",
-    url: '/my-events',
+    url: '/',
     icon: Home,
   },
   {
@@ -32,7 +33,7 @@ const customers = [
   },
   {
     title:'Logout',
-    url:'login',
+    url:'/login',
     icon:Home,
   }
 ]
@@ -42,7 +43,7 @@ const customers = [
 const admin = [
     {
       title: "All Events",
-      url: "/all-events",
+      url: "/admin/all-events",
       icon: Home,
     },
     {
@@ -57,33 +58,39 @@ const admin = [
     },
    {
     title:'Logout',
-    url:'login',
+    url:'/login',
     icon:Home
    }
   ]
-
 export function AppSidebar() {
+  const location = useLocation()
+  let sidebarItems;
+  if(location.pathname.includes('admin')){ sidebarItems = admin}
+  else{sidebarItems = customers}
 async function logOut(){
   const { error } = await supabase.auth.signOut()
 }
 
 
   return (
-    <Sidebar>
-      <SidebarContent>
-        <SidebarGroup>
+    <Sidebar >
+      <SidebarContent className={'shadow-md hover:shadow-lg transition-shadow duration-300 shadow-gray-400'}>
+        <SidebarGroup >
           <SidebarGroupLabel>Application</SidebarGroupLabel>
-          <SidebarGroupContent>
-            <SidebarMenu>
-              {customers.map((item) => (
-                <SidebarMenuItem key={item.title}>
-                  <SidebarMenuButton asChild>
-                    <Link to={item.url}>
-                      <item.icon />
-                      <span>{item.title}</span>
-                    </Link>
+          <SidebarGroupContent >
+            <SidebarMenu >
+              {sidebarItems.map((item) => (
+                  <NavLink key={item.title} className={({ isActive }) => 
+                    isActive ? "text-shadow-black  bg-amber-300" : ""
+  } onClick={item.title=='Logout'? logOut:null} to={item.url}>
+                <SidebarMenuItem >
+                  <SidebarMenuButton className={'font-semibold hover:bg-amber-300'} asChild>
+                  <div><item.icon />
+                      <span>{item.title}</span></div>
+                      
+                    
                   </SidebarMenuButton>
-                </SidebarMenuItem>
+                </SidebarMenuItem></NavLink>
               ))}
             </SidebarMenu>
           </SidebarGroupContent>

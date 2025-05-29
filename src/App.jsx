@@ -32,7 +32,7 @@ import { AppSidebar } from "@/components/dashboard"
 import { Card,CardTitle,CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { Skeleton } from "./components/ui/skeleton"
+import { ClipLoader } from "react-spinners"
 import { MapPin,UsersRound,Clock,CircleCheckBig } from "lucide-react"
 import { useEffect, useState } from "react"
 import { useContext } from "react"
@@ -45,6 +45,7 @@ export function App(){
   const [totalEvevnts,setTotalEvents] = useState(0)
   const [pendingEvents,setPendingEvents] = useState(0)
   const [ApprovedEvents,setApprovedEvents] = useState(0)
+  const [loading,setLoading] = useState(true)
 
     useRedirect()
     useEffect(()=>{
@@ -65,7 +66,7 @@ else if(e.status.toLowerCase()=='approved'){ approved++ }
 setTotalEvents(filtered.length)
 setApprovedEvents(approved)
 setPendingEvents(pending)
-  
+setLoading(false)
   
   
   }
@@ -73,7 +74,7 @@ setPendingEvents(pending)
     getData(); 
 },[])
  setEventData(filteredData)
-
+ 
 return(
 
 
@@ -91,8 +92,16 @@ return(
     <SidebarProvider>
       <AppSidebar/> 
       <Header data={<>
-        
-         <div className=" my-4 mx-2 grid grid-cols-2  md:grid-cols-4 gap-3">
+        {loading?<div className="flex justify-center items-center h-[90vh]">
+        <ClipLoader className="flex justify-center items-center"
+  color="#f1d22f"
+  cssOverride={{}}
+  size={250}
+  speedMultiplier={0.5}
+/>
+</div>:
+<>
+<div className=" my-4 mx-2 grid grid-cols-2  md:grid-cols-4 gap-3">
 
                     
 
@@ -137,6 +146,10 @@ return(
                   })}
 
                 </div>
+                
+</>
+}
+         
 
         </>}/>
 

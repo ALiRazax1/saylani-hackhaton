@@ -48,12 +48,12 @@ const admin = [
     },
     {
       title: "Pending events",
-      url: "/pending-events",
+      url: "/admin/pending-events",
       icon: Inbox,
     },
     {
       title: "Costumers List",
-      url: "/list",
+      url: "admin//list",
       icon: Calendar,
     },
    {

@@ -5,6 +5,7 @@ import { Card,CardTitle,CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { MapPin,UsersRound } from "lucide-react"
+import { Link } from "react-router"
 import { Context as dataContext } from "@/context/event-data"
 import { useContext, useState,useEffect } from "react"
 export function ApprovedEvent(){
@@ -31,7 +32,8 @@ export function ApprovedEvent(){
                         <Badge variant={e.status.toLowerCase()==='approved'? 'default':'secondary'}>{e.status}</Badge></div>
                         <Button disabled={e.status.toLowerCase()==='pending'} className={'text-[12px] px-1 border-amber-400 border bg-transparent text-black cursor-pointer transition duration-500 hover:border hover:border-amber-400'} >Add Participant</Button>
 </div><MapPin className="py-0 my-0" size={18} strokeWidth={0.5} /><span className="flex gap-x-2 items-center text-[14px]"> <UsersRound size={18} strokeWidth={0.5}></UsersRound> asd</span><UsersRound size={18} strokeWidth={0.5}/>
-<Button>View Details</Button>
+<Link to={`/${e.id}`}>
+<Button>View Details</Button></Link>
 
                       </Card>}
                       

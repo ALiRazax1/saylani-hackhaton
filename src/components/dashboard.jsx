@@ -53,7 +53,7 @@ const admin = [
     },
     {
       title: "Costumers List",
-      url: "admin//list",
+      url: "/admin/customers",
       icon: Calendar,
     },
    {

@@ -25,7 +25,7 @@ useRedirect()
       if(data){
          const { error:usersRoleDataError } = await supabase
   .from('users')
-  .insert({ user_id:data.user.id,name: data.user.user_metadata.name,role:'user' })
+  .insert({ user_id:data.user.id,name: data.user.user_metadata.name,role:'user',email:data.user.email })
 if(usersRoleDataError) throw error      
 }
      

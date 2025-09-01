@@ -88,7 +88,7 @@ async function uploadFile(){
 try {
   const { error } = await supabase
   .from('events')
-  .insert({ user_id:user.id ,title: eventName,description:eventDes,status:'Pending',category:category,location,"created-by":user.user_metadata.name,img_url:url})
+  .insert({ user_id:user.id ,title: eventName,description:eventDes,status:'Pending',category:category,location,created_by:user.user_metadata.name,img_url:url})
   setAlert(true)
  setCategory('')
   setEventDes('')
